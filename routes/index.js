@@ -1,5 +1,6 @@
-// const router  = (publicRouter) => {
-//   publicRouter.use('/api', require('./api'))
-// }
+const router = publicRouter => {
+	publicRouter.use('/api', ctx => (ctx.body = `Hello ${ctx.name}`))
+	// publicRouter.use('/test', require('./test'))
+}
 
-// module.exports = { router }
+module.exports = { router }
