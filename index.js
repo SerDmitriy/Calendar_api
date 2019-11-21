@@ -6,31 +6,28 @@ const render = require('koa-ejs')
 const mongoose = require('mongoose')
 const bodyParser = require('koa-bodyparser')
 
-const publicRouter = require('./routes')
+// const publicRouter = require('./routes')
 const app = new Koa()
 const router = new KoaRouter()
-router.use('/we', ctx => (ctx.body = `router.use('/we'`))
-router.use('/qw', ctx => (ctx.body = `router.use('/qw'`))
+const routerApi = new KoaRouter()
+const routerCalendar = new KoaRouter()
+
+routerApi.all('/api/:id', (ctx, next) => {
+	ctx.body = 'routerApi all from router'
+})
+routerCalendar.all('/calendar/:id', (ctx, next) => {
+	ctx.body = 'routerCalendar all from router'
+})
+router.use('/user', routerApi.routes(), routerApi.allowedMethods())
+router.use('/router', routerCalendar.routes(), routerCalendar.allowedMethods())
 
 const calendars = ['Birth days', "Party's", 'Religion']
 
 mongoose.connect('mongodb://localhost:27017/admin', { useNewUrlParser: true, useUnifiedTopology: true })
 app.use(json())
 app.use(bodyParser())
-// app.use(responseTime)
-// app.use(router)
-
-// router.get('/', (ctx, next) => {
-// 	console.log('router grab path "/"')
-// ctx.router available
-// })
 
 app.use(router.routes()).use(router.allowedMethods())
-
-router.all('/users/:id', (ctx, next) => {
-	ctx.body = 'method all from router'
-	console.log(ctx)
-})
 
 // app.use(async (ctx, next) => {
 // 	ctx.status = 200
