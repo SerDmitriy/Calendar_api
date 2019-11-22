@@ -1,8 +1,10 @@
-const router = new KoaRouter()
+const Router = require('koa-router')
+const router = new Router()
 
-const router = publicRouter => {
-	publicRouter.use('/api', ctx => (ctx.body = `Hello ${ctx.name}`))
-	// publicRouter.use('/test', require('./test'))
-}
+const routerApi = require('./api.js')
+const routerCalendar = require('./calendars.js')
 
-module.exports = { router }
+router.use(routerApi.routes()).use(routerApi.allowedMethods())
+router.use(routerCalendar.routes()).use(routerCalendar.allowedMethods())
+
+module.exports = router
