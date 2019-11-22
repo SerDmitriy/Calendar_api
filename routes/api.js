@@ -1,15 +1,15 @@
 const ctrl = require('../controllers/calendarController.js')
 const Router = require('koa-router')
-const router = new Router({ prefix: '/calendars' })
+const router = new Router({ prefix: '/api' })
 
-router.get('/', ctx => (ctx.body = `calendars get`))
-router.post('/', ctx => (ctx.body = `calendars post`))
-router.put('/:id', ctx => (ctx.body = `calendars put`))
-router.delete('/:id', ctx => (ctx.body = `calendars delete`))
+router.get('/', ctx => (ctx.body = ctx))
+router.post('/', ctx => (ctx.body = ctx))
+router.put('/:id', ctx => (ctx.body = ctx))
+router.delete('/:id', ctx => (ctx.body = ctx))
 
-// router.get('/', ctrl.fetchCalendars)
-// router.post('/', ctrl.addNewCalendar)
-// router.put('/:id', ctrl.editCalendar)
-// router.delete('/:id', ctrl.removeCalendar)
+// router.all('/:id', ctx => {
+// 	console.log('ctx', ctx)
+// 	ctx.body = ctx
+// })
 
 module.exports = router
